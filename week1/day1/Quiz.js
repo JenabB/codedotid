@@ -183,8 +183,8 @@ console.log(getPeriodTimes("700005A")); //700005A is not number
 console.log(getPeriodTimes("700005")); //8 hari 2 jam 26 menit 45 detik
 console.log("\n");
 
-// // ---------------------------------------------------------------------------
-// //Soal 9: Random Password
+// ---------------------------------------------------------------------------
+//Soal 9: Random Password
 
 function getRandomPassword(s) {
   if (typeof s !== "string") {
@@ -214,5 +214,38 @@ console.log(getRandomPassword("code")); //Length must more than 6
 console.log(getRandomPassword("codeid")); //doed3726
 console.log("\n");
 
-// // ---------------------------------------------------------------------------
-// //Soal 9: Random Password
+// ---------------------------------------------------------------------------
+//Soal 10: Konversi Mata Uang
+
+function convertToRupiah(value, currencyType) {
+  switch (currencyType) {
+    case "yen":
+      return `$${value} yen = Rp.${value * 129.88}`;
+    case "usd":
+      return `${value} USD = Rp.${value * 14272.67}`;
+    case "euro":
+      return `${value} EUR = Rp.${value * 16932.8}`;
+    default:
+      return "no match type currency";
+  }
+}
+
+console.log("Soal 10: Konversi Mata Uang");
+console.log(convertToRupiah(1000, "yen")); //1000 yen
+console.log(convertToRupiah(100, "usd")); //100 dollar
+console.log(convertToRupiah(100, "euro")); //100 dollar
+console.log(convertToRupiah(100, "")); //no match type currency
+console.log("\n");
+
+// ---------------------------------------------------------------------------
+//Soal 11: Siapa paling berat
+
+function getHeavier(w1, w2, w3) {
+  const arrayHeavy = [w1, w2, w3];
+
+  const sortedArray = arrayHeavy.reverse();
+  return sortedArray[0];
+}
+
+console.log("Soal 11: Siapa paling berat");
+console.log(getHeavier(12, 45, 70)); //70
