@@ -1,0 +1,2 @@
+stack memory = primitive
+heap memory = non primitive
