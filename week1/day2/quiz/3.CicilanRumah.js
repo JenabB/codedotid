@@ -38,7 +38,7 @@ function payment(tglBayar, tglJatuhTempo, jumlahCicilan) {
   }
   //denda akan berlaku ketika terlambat membayar
   else if (countDay > 0) {
-    denda = countDay * (2 / 1000);
+    denda = angsuran * (2 / 1000) + countDay;
   }
 
   const totalBayar = angsuran + denda;
@@ -55,8 +55,8 @@ function payment(tglBayar, tglJatuhTempo, jumlahCicilan) {
   `;
 }
 
-// console.log(payment("09/30/2021", "09/27/2021", 50000)); //Angsuran anda kurang dari Rp 3.500.000,00. Silahkan isi sesuai angsuran
-console.log(payment("09/21/2021", "09/27/2021", 3500000)); //Tagihan bulan 8 belum tersedia
+console.log(payment("09/30/2021", "09/27/2021", 50000)); //Angsuran anda kurang dari Rp 3.500.000,00. Silahkan isi sesuai angsuran
+console.log(payment("09/29/2021", "09/27/2021", 3500000)); //Tagihan bulan 9 belum tersedia
 console.log(payment("09/27/2021", "09/27/2021", 3500000));
 /**
 --------------------------
