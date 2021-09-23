@@ -1,0 +1,82 @@
+-- pass
+CREATE TABLE users (
+	user_id SERIAL PRIMARY KEY,
+	user_name CHARACTER VARYING (25),
+	user_firstname CHARACTER VARYING (15),
+	user_lastname CHARACTER VARYING (15),
+	user_email CHARACTER VARYING (55),
+	user_password CHARACTER VARYING (10),
+	user_phone CHARACTER VARYING (15)
+);
+
+-- pass
+CREATE TABLE categories (
+	cate_id SERIAL PRIMARY KEY,
+	cate_name CHARACTER VARYING (100)
+);
+
+-- 
+CREATE TABLE products (
+	prod_id SERIAL PRIMARY KEY,
+	prod_name CHARACTER VARYING (100),
+	prod_price NUMERIC (18,2),
+	prod_desc CHARACTER VARYING (3000),
+	prod_url_image CHARACTER VARYING (255),
+	prod_rating INTEGER,
+	prod_view_count INTEGER,
+	prod_user_id INTEGER,
+	prod_cate_id INTEGER,
+	FOREIGN KEY (prod_user_id) REFERENCES users (user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (prod_cate_id) REFERENCES categories (cate_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE product_images (
+	prim_id SERIAL PRIMARY KEY,
+	prim_filename CHARACTER VARYING (55),
+	prim_filesize INTEGER,
+	prim_filetype CHARACTER VARYING (25),
+	prim_url CHARACTER VARYING (255),
+	prim_primary BOOLEAN,
+	prim_prod_id INTEGER,
+	FOREIGN KEY (prim_prod_id) REFERENCES products (prod_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE carts (
+	cart_id SERIAL PRIMARY KEY,
+	cart_createdon DATE,
+	cart_status CHARACTER VARYING (15),
+	cart_user_id INTEGER,
+	FOREIGN KEY (cart_user_id) REFERENCES users (user_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE orders (
+	order_name CHARACTER VARYING (25),
+	order_createdon DATE,
+	order_total_qty INTEGER,
+	order_subtotal NUMERIC (18, 2),
+	order_discount NUMERIC (18, 2),
+	order_tax NUMERIC (18,2),
+	order_tax_due NUMERIC (18, 2),
+	order_address CHARACTER VARYING (500),
+	order_phone CHARACTER VARYING (15),
+	order_city CHARACTER VARYING (20),
+	order_status CHARACTER VARYING (15),
+	order_user_id INTEGER,
+	FOREIGN KEY (order_user_id) REFERENCES users (user_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE line_items (
+	lite_prod_id INTEGER,
+	lite_cart_id INTEGER,
+	lite_qty INTEGER,
+	lite_price NUMERIC (18,2),
+	lite_total_price NUMERIC (18,2),
+	lite_status CHARACTER VARYING (15),
+	lite_order_name CHARACTER VARYING (25),
+	FOREIGN KEY (lite_prod_id) REFERENCES products (prod_id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (lite_cart_id) REFERENCES carts (cart_id) ON UPDATE CASCADE ON DELETE CASCADE,
+	PRIMARY KEY (lite_prod_id, lite_cart_id)
+);
+
+SELECT * FROM users
+
