@@ -48,10 +48,9 @@ const InitModels = (sequelize) => {
   line_items.belongsTo(carts, { as: "lite_cart", foreignKey: "lite_cart_id" });
   carts.hasMany(line_items, { as: "line_items", foreignKey: "lite_cart_id" });
   products.belongsTo(categories, {
-    as: "prod_cate",
     foreignKey: "prod_cate_id",
   });
-  categories.hasMany(products, { as: "products", foreignKey: "prod_cate_id" });
+  categories.hasMany(products, { foreignKey: "prod_cate_id" });
   line_items.belongsTo(products, {
     as: "lite_prod",
     foreignKey: "lite_prod_id",

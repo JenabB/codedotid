@@ -29,6 +29,7 @@ app.use("/eshopay/", (req, res) => {
 });
 
 app.use("/categories", router.CategoriesRoute);
+app.use("/products", router.ProductsRoute);
 
 const dropDatabaseSync = false;
 

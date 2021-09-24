@@ -1,0 +1,5 @@
+INSERT INTO public.users(
+	user_name, user_firstname, user_lastname, user_email, user_password, user_phone)
+	VALUES ( 'lyly119', 'Lydra', 'Ginting', 'lyly@gmail.com', 'lyly123', '08888');
+	
+SELECT * FROM users

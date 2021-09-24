@@ -4,6 +4,7 @@ import IndexCtrl from "../controllers/IndexCtrl";
 const router = Router();
 
 router.get("/", IndexCtrl.CategoriesCtrl.findAll);
+router.get("/detail", IndexCtrl.CategoriesCtrl.cateProducts);
 router.get("/:id", IndexCtrl.CategoriesCtrl.findCategoryById);
 
 //post

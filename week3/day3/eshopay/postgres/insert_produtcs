@@ -1,0 +1,3 @@
+INSERT INTO public.products(
+	prod_name, prod_price, prod_desc, prod_url_image, prod_rating, prod_view_count, prod_user_id, prod_cate_id)
+	VALUES ( 'Samsung TV', 20000000, 'Produk Andalan', null, 4, 10, 1, 1);

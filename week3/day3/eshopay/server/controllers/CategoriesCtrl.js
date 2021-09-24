@@ -35,15 +35,30 @@ const findCategoryById = async (req, res) => {
   }
 };
 
+const cateProducts = async (req, res) => {
+  try {
+    const result = await req.context.models.categories.findAll({
+      include: [
+        {
+          model: req.context.models.products,
+        },
+      ],
+    });
+    return res.send(result);
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 const createCategory = async (req, res) => {
   const { cate_id, cate_name } = req.body;
 
   try {
-    const result = await req.context.categories.create({
+    const result = await req.context.models.categories.create({
       cate_id: cate_id,
       cate_name: cate_name,
     });
-    return res.send("created" + result);
+    return res.send(result);
   } catch (error) {
     res.send(error);
   }
@@ -52,7 +67,7 @@ const createCategory = async (req, res) => {
 const updateCategory = async (req, res) => {
   const { cate_name } = req.body;
   try {
-    const result = await req.context.categories.update(
+    const result = await req.context.models.categories.update(
       { cate_name: cate_name },
       { returning: true, where: { cate_id: req.params.id } }
     );
@@ -63,8 +78,9 @@ const updateCategory = async (req, res) => {
 };
 
 const deleteCategory = async (req, res) => {
+  const id = req.params.id;
   try {
-    const result = await req.context.categories.destroy({
+    const result = await req.context.models.categories.destroy({
       where: { cate_id: id },
     });
     return res.send(result);
@@ -77,6 +93,7 @@ export default {
   findCategoryBySQL,
   findAll,
   findCategoryById,
+  cateProducts,
   createCategory,
   updateCategory,
   deleteCategory,
