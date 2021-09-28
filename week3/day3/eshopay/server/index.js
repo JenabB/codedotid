@@ -30,6 +30,7 @@ app.use(process.env.URL_DOMAIN, (req, res) => {
 
 app.use(process.env.URL_API + "/categories", router.CategoriesRoute);
 app.use(process.env.URL_API + "/products", router.ProductsRoute);
+app.use(process.env.URL_API + "/carts", router.CartsRoute);
 
 const dropDatabaseSync = false;
 

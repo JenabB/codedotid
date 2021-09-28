@@ -5,16 +5,15 @@ const router = Router();
 
 router.get("/", IndexCtrl.ProductsCtrl.findAllProducts);
 router.get("/images/:fileName", IndexCtrl.ProductsCtrl.showProductImage);
-// router.get("/detail", IndexCtrl.CategoriesCtrl.cateProducts);
-// router.get("/:id", IndexCtrl.CategoriesCtrl.findCategoryById);
+router.get("/:id", IndexCtrl.ProductsCtrl.findProductById);
 
 // //post
 router.post("/", IndexCtrl.ProductsCtrl.createProduct);
 
-// //put
-// router.put("/:id", IndexCtrl.CategoriesCtrl.updateCategory);
+//put
+router.put("/:id", IndexCtrl.ProductsCtrl.updateProduct);
 
-// //delete
-// router.delete("/:id", IndexCtrl.CategoriesCtrl.deleteCategory);
+//delete
+router.delete("/:id", IndexCtrl.ProductsCtrl.deleteProduct);
 
 export default router;

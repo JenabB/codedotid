@@ -1,22 +1,3 @@
-import { sequelize } from "../models/schemas/IndexModels";
-
-const findCategoryBySQL = async (req, res) => {
-  try {
-    const result = await sequelize.query(
-      "select cate_id,cate_name from categories",
-      {
-        type: sequelize.QueryTypes.SELECT,
-        model: req.context.models.categories,
-        mapToModel: true,
-      }
-    );
-
-    return res.send(result);
-  } catch (error) {
-    res.send(error);
-  }
-};
-
 const findAll = async (req, res) => {
   try {
     const result = await req.context.models.categories.findAll();
@@ -31,7 +12,7 @@ const findCategoryById = async (req, res) => {
     const result = await req.context.models.categories.findByPk(req.params.id);
     return res.send(result);
   } catch (error) {
-    res.send(error);
+    res.send("Not found");
   }
 };
 
@@ -51,11 +32,10 @@ const cateProducts = async (req, res) => {
 };
 
 const createCategory = async (req, res) => {
-  const { cate_id, cate_name } = req.body;
+  const { cate_name } = req.body;
 
   try {
     const result = await req.context.models.categories.create({
-      cate_id: cate_id,
       cate_name: cate_name,
     });
     return res.send(result);
@@ -80,17 +60,16 @@ const updateCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
   const id = req.params.id;
   try {
-    const result = await req.context.models.categories.destroy({
+    await req.context.models.categories.destroy({
       where: { cate_id: id },
     });
-    return res.send(result);
+    return res.send("deleted");
   } catch (error) {
     return res.send(error);
   }
 };
 
 export default {
-  findCategoryBySQL,
   findAll,
   findCategoryById,
   cateProducts,

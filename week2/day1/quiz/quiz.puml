@@ -1,0 +1,107 @@
+
+@startuml erd-hr
+
+
+entity regions {
+    *region_id serial <<pk>>
+    --
+    region_name varchar (25)
+}
+
+
+entity countries {
+    *country_id character (2) <<pk>>
+    --
+    country_name varchar (40)
+    --
+    *region_id integer <<fk>>
+}
+
+
+entity locations {
+    *location_id serial <<pk>>
+    --
+    street_address varchar (40)
+    postal_code varchar (12)
+    city varchar (30) not null
+    state_province varchar (25)
+    --
+    country_id character (2) <<fk>>
+}
+
+
+entity departments {
+    *department_id serial <<pk>>
+    --
+    department_name varchar (30) not null
+    --
+    location_id integer <<fk>>
+}
+
+
+entity jobs {
+    *job_id serial <<pk>>
+    --
+    job_title varchar (35) not null
+    min_salary numeric (8 2)
+    max_salary numeric (8 2)
+}
+
+
+entity employees {
+    *employee_id serial <<pk>>
+    --
+    first_name varchar (20)
+    last_name varchar (25) not null
+    email varchar (100) not null
+    phone_number varchar (20)
+    hire_date date not null
+    job_id integer not null
+    salary numeric (8 2) not null
+    manager_id integer
+    --
+    department_id integer <<fk>>
+}
+
+
+entity dependents {
+    *dependent_id serial <<pk>>
+    --
+    first_name varchar (50) not null
+    last_name varchar (50) not null
+    relationship varchar (25) not null
+    --
+    employee_id integer <<fk>>
+}
+
+
+
+entity projects{
+    *proj_id serial <<pk>>
+    --
+    proj_name varchar(100)
+    proj_createdon date
+    proj_duedate date
+    proj_cust_name varchar(100)
+}
+
+entity project_assignment{
+    *pras_proj_id integer
+    *pras_employee_id integer
+    --
+    pras_startdate date  
+    pras_enddate date
+    pras_status varchar(15)
+    --
+    pras_proj_id,pras_employee_id <<pk,fk>>
+}
+s
+regions ||--o{ countries
+countries ||--o{ locations
+locations |o--o{ departments
+departments |o-left-o{ employees
+employees }o-up-|| jobs
+employees }o-left-|| dependents
+employees "0..*" -- "1..*" projects
+(employees,projects) .. project_assignment
+@enduml
